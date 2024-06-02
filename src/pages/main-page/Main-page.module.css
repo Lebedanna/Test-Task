@@ -1,0 +1,81 @@
+.main-page {
+    padding-left: 26px;
+    padding-right: 26px;
+    height: 100%;
+}
+
+.page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 338px;
+    height: 35px;
+    padding-top: 12px;
+}
+
+h1 {
+    font-family: var(--font);
+    font-weight: 800;
+    font-size: 24px;
+    line-height: 110%;
+    color: var(--text-color);
+    padding-bottom: 14px;
+    border-bottom: var(--separator-color) solid 1px;
+    margin-top: 24px;
+    margin-bottom: 0;
+}
+
+.add-button {
+    color: var(--green-color);
+    background-color: transparent;
+    border: none;
+    font-family: var(--font);
+    font-size: 32px;
+    font-weight: 800;
+    margin-left: auto;
+    cursor: pointer;
+}
+
+.link-button {
+    margin-right: auto;
+    cursor: pointer;
+}
+
+.add-button:hover {
+    color: var(--green-hover-color);
+}
+
+.pause-all-button, .reset-all-button {
+    font-family: var(--font);
+    font-weight: 800;
+    font-size: 10px;
+    color: var(--orange-color);
+}
+
+.pause-all-button:hover, .reset-all-button:hover {
+    color: var(--orange-hover-color);
+}
+
+.delete-all-button {
+    font-family: var(--font);
+    font-weight: 800;
+    font-size: 10px;
+    color: #DD363C;
+}
+
+.delete-all-button:hover {
+    color: #FF3B41;
+}
+
+.timers-list-container {
+    max-height: 300px;
+    overflow: auto;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
+}
+
+.timers-list-container::-webkit-scrollbar { /* Chrome, Safari and Opera */
+    width: 0;
+    height: 0;
+    display: none;
+}

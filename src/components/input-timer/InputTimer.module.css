@@ -1,0 +1,68 @@
+.input-container {
+    font-family: var(--font);
+}
+
+.input-wheel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 71px;
+    margin-left: 53px;
+    color: var(--text-color);
+    cursor: pointer;
+    font-weight: 900;
+    min-height: 288px;
+}
+
+.wheel-minutes, .wheel-seconds {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 21px;
+}
+
+.selectedItem {
+    font-size: 30px;
+}
+
+.nonSelectedItem {
+    font-size: 30px;
+    color: var(--text-secondary-color)
+}
+
+.label {
+    color: var(--text-color);
+    font-weight: 800;
+    font-size: 20px;
+    margin-top: 92px;
+    margin-left: -10px;
+}
+
+.button-div {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
+
+.timer-button {
+    font-family: var(--font);
+    font-weight: 800;
+    font-size: 20px;
+    color: var(--text-color);
+    background-color: var(--green-color);
+    box-shadow: inset -4px -6px 5.5px rgba(0, 0, 0, 0.25);
+    border-radius: 32px;
+    border: none;
+    padding: 19px 64px 15px 68px;
+    margin-bottom: 0;
+}
+
+.timer-button:hover {
+    background-color: var(--green-hover-color);
+}
+
+div:not([class]) {
+    background: none !important;
+}
+
+

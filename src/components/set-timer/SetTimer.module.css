@@ -1,0 +1,16 @@
+.set-timer {
+    display: flex;
+    align-content: center;
+}
+
+.show-timer {
+    height: 100%;
+    padding: 23px 22px 34px 26px;
+    max-height: 400px;
+}
+
+.page-header {
+    width: 338px;
+    height: 35px;
+    gap: 245px;
+}
