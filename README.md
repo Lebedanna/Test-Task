@@ -16,3 +16,5 @@
 ## Запуск проекта
 `npm install`
 `npm run dev`
+
+![app gif](app-gif.gif)
