@@ -9,6 +9,7 @@ export interface Timer {
     duration: number;
     originalDuration: number;
     isRunning: boolean;
+    elapsedTime: number;
 }
 
 export interface TimerContextType {
@@ -17,8 +18,10 @@ export interface TimerContextType {
     removeTimer: (id: number) => void;
     pauseAllTimers: () => void;
     resetAllTimers: () => void;
+    startTimer: (id: number) => void;
     updateTimerRunningState: (id: number, isRunning: boolean) => void;
     deleteAllTimers: () => void;
+    stopTimer: (id: number) => void;
     startAllTimers: () => void;
     activeTimerId: number | null;
     setActiveTimerId: (id: number | null) => void;
@@ -29,6 +32,8 @@ const TimerContext = createContext<TimerContextType>({
     timers: [],
     addTimer: () => {
     },
+    startTimer: () => {
+    },
     removeTimer: () => {
     },
     pauseAllTimers: () => {
@@ -36,6 +41,8 @@ const TimerContext = createContext<TimerContextType>({
     resetAllTimers: () => {
     },
     updateTimerRunningState: () => {
+    },
+    stopTimer: () => {
     },
     deleteAllTimers: () => {
     },
@@ -53,30 +60,51 @@ export const TimerProvider: FC<TimerProviderProps> = ({children}) => {
         {
             id: 1, duration: 300,
             originalDuration: 300,
-            isRunning: false
+            isRunning: false,
+            elapsedTime: 0
         },
         {
             id: 2, duration: 600,
             originalDuration: 600,
-            isRunning: false
+            isRunning: false,
+            elapsedTime: 0
         },
         {
             id: 3, duration: 120,
             originalDuration: 120,
-            isRunning: false
+            isRunning: false,
+            elapsedTime: 0
         },
     ]);
     const [activeTimerId, setActiveTimerId] = useState<number | null>(null);
 
     const addTimer = (timer: Timer) => {
         timer.originalDuration = timer.duration;
+        timer.elapsedTime = 0;
         setTimers([...timers, timer]);
     };
 
-    const startAllTimers = () => {
-        setTimers(prevTimers => prevTimers.map(timer => ({...timer, isRunning: true})));
-    }
+    const startTimer = (id: number) => {
+        setTimers(prevTimers => prevTimers.map(timer =>
+            timer.id === id ? {...timer, isRunning: true, elapsedTime: timer.elapsedTime + 1} : timer
+        ));
+    };
 
+    const stopTimer = (id: number) => {
+        setTimers(prevTimers => prevTimers.map(timer =>
+            timer.id === id ? {...timer, isRunning: false} : timer
+        ));
+    };
+
+    const startAllTimers = () => {
+        timers.forEach(timer => startTimer(timer.id));
+    };
+
+    const resetAllTimers = () => {
+        setTimers(prevTimers => prevTimers.map(timer => {
+            return {...timer, duration: timer.originalDuration, isRunning: false, elapsedTime: 0};
+        }));
+    };
 
     const removeTimer = (id: number) => {
         setTimers(timers.filter(timer => timer.id !== id));
@@ -84,12 +112,11 @@ export const TimerProvider: FC<TimerProviderProps> = ({children}) => {
 
     const pauseAllTimers = () => {
         setTimers(prevTimers => prevTimers.map(timer => ({...timer, isRunning: false})));
-        console.log(timers)
     };
 
     const updateTimerRunningState = (id: number, isRunning: boolean) => {
         setTimers(prevTimers => prevTimers.map(timer =>
-            timer.id === id ? {...timer, isRunning, duration: isRunning ? timer.duration - 1 : timer.duration} : timer
+            timer.id === id ? {...timer, isRunning, elapsedTime: isRunning ? timer.elapsedTime + 1 : timer.elapsedTime} : timer
         ));
     };
 
@@ -99,13 +126,6 @@ export const TimerProvider: FC<TimerProviderProps> = ({children}) => {
         ));
     };
 
-    const resetAllTimers = () => {
-        setTimers(prevTimers => prevTimers.map(timer => {
-            resetElapsedTime(timer.id);
-            return {...timer, duration: timer.originalDuration, isRunning: false};
-        }));
-    };
-
     const deleteAllTimers = () => {
         setTimers([]);
     };
@@ -113,11 +133,13 @@ export const TimerProvider: FC<TimerProviderProps> = ({children}) => {
     return (
         <TimerContext.Provider value={{
             timers,
+            activeTimerId,
             addTimer,
             removeTimer,
-            activeTimerId,
+            startTimer,
             setActiveTimerId,
             pauseAllTimers,
+            stopTimer,
             updateTimerRunningState,
             resetAllTimers,
             deleteAllTimers,

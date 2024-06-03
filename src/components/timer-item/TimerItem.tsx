@@ -1,49 +1,29 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useEffect, useContext} from 'react';
 import styles from './TimerItem.module.css';
 import { TimerItemProps } from './TimerItem.props.ts';
 import TimerContext from "../../context/TimerContext.tsx";
 
 const TimerItem: React.FC<TimerItemProps> = ({ timer, isEditMode, onDelete }) => {
-    const [elapsedTime, setElapsedTime] = useState(0);
-    const {updateTimerRunningState} = useContext(TimerContext);
+    const {startTimer, stopTimer} = useContext(TimerContext);
     const isRunning = timer.isRunning;
+
     useEffect(() => {
         let interval: NodeJS.Timeout;
         if (isRunning) {
             interval = setInterval(() => {
-                setElapsedTime(prevElapsedTime => {
-                    if (prevElapsedTime < timer.duration) {
-                        return prevElapsedTime + 1;
-                    } else {
-                        updateTimerRunningState(timer.id, false);
-                        return timer.duration;
-                    }
-                });
+                if (timer.elapsedTime < timer.duration) {
+                    startTimer(timer.id);
+                } else {
+                    stopTimer(timer.id);
+                }
             }, 1000);
         }
 
         return () => clearInterval(interval);
-    }, [updateTimerRunningState, timer.duration, isRunning, timer.id]);
+    }, [startTimer, stopTimer, timer.duration, isRunning, timer.id]);
 
-    const startTimer = () => {
-        updateTimerRunningState(timer.id, true);
-    };
-
-    const resetElapsedTime = () => {
-        setElapsedTime(0);
-    };
-
-    useEffect(() => {
-        resetElapsedTime();
-    }, [timer.duration]);
-
-    const stopTimer = () => {
-        updateTimerRunningState(timer.id, false);
-        setElapsedTime(elapsedTime);
-    };
-
-    const minutes = Math.floor((timer.duration - elapsedTime) / 60);
-    const seconds = (timer.duration - elapsedTime) % 60;
+    const minutes = Math.floor((timer.duration - timer.elapsedTime) / 60);
+    const seconds = (timer.duration - timer.elapsedTime) % 60;
 
     const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes.toString();
     const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds.toString();
@@ -70,11 +50,11 @@ const TimerItem: React.FC<TimerItemProps> = ({ timer, isEditMode, onDelete }) =>
                     </button>
                 ) : (
                     isRunning ? (
-                        <button onClick={stopTimer} className={styles['pause-btn']}>
+                        <button onClick={() => stopTimer(timer.id)} className={styles['pause-btn']}>
                             <img src='/pause.svg' alt='stop'/>
                         </button>
                     ) : (
-                        <button onClick={startTimer} className={styles['start-btn']}>
+                        <button onClick={() => startTimer(timer.id)} className={styles['start-btn']}>
                             <img src='/start.svg' alt='start'/>
                         </button>
                     )
