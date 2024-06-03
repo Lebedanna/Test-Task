@@ -45,14 +45,14 @@ h1 {
     color: var(--green-hover-color);
 }
 
-.pause-all-button, .reset-all-button {
+.pause-all-button, .reset-all-button, .start-all-button {
     font-family: var(--font);
     font-weight: 800;
     font-size: 10px;
     color: var(--orange-color);
 }
 
-.pause-all-button:hover, .reset-all-button:hover {
+.pause-all-button:hover, .reset-all-button:hover, .start-all-button:hover {
     color: var(--orange-hover-color);
 }
 
