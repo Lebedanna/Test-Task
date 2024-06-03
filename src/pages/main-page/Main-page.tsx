@@ -11,7 +11,8 @@ const MainPage: React.FC = () => {
         removeTimer,
         deleteAllTimers,
         pauseAllTimers,
-        resetAllTimers
+        resetAllTimers,
+        startAllTimers
     } = useContext<TimerContextType>(TimerContext);
     const [isEditMode, setIsEditMode] = useState(false);
 
@@ -34,8 +35,9 @@ const MainPage: React.FC = () => {
                     <button onClick={deleteAllTimers} className={styles['delete-all-button']}>Удалить все</button>
                 ) : (
                     <>
-                        <button onClick={pauseAllTimers} className={styles['pause-all-button']}>Остановить все</button>
-                        <button onClick={resetAllTimers} className={styles['reset-all-button']}>Сбросить все</button>
+                        <button onClick={startAllTimers} className={styles['start-all-button']}>Старт</button>
+                        <button onClick={pauseAllTimers} className={styles['pause-all-button']}>Стоп</button>
+                        <button onClick={resetAllTimers} className={styles['reset-all-button']}>Сброс</button>
                     </>
                 )}
                 <NavLink to={'/timers'}>
