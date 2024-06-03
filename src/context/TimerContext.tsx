@@ -19,6 +19,7 @@ export interface TimerContextType {
     resetAllTimers: () => void;
     updateTimerRunningState: (id: number, isRunning: boolean) => void;
     deleteAllTimers: () => void;
+    startAllTimers: () => void;
     activeTimerId: number | null;
     setActiveTimerId: (id: number | null) => void;
     resetElapsedTime: (id: number) => void;
@@ -37,6 +38,8 @@ const TimerContext = createContext<TimerContextType>({
     updateTimerRunningState: () => {
     },
     deleteAllTimers: () => {
+    },
+    startAllTimers: () => {
     },
     activeTimerId: null,
     setActiveTimerId: () => {
@@ -69,6 +72,11 @@ export const TimerProvider: FC<TimerProviderProps> = ({children}) => {
         timer.originalDuration = timer.duration;
         setTimers([...timers, timer]);
     };
+
+    const startAllTimers = () => {
+        setTimers(prevTimers => prevTimers.map(timer => ({...timer, isRunning: true})));
+    }
+
 
     const removeTimer = (id: number) => {
         setTimers(timers.filter(timer => timer.id !== id));
@@ -113,6 +121,7 @@ export const TimerProvider: FC<TimerProviderProps> = ({children}) => {
             updateTimerRunningState,
             resetAllTimers,
             deleteAllTimers,
+            startAllTimers,
             resetElapsedTime
         }}>
             {children}
