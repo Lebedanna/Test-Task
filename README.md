@@ -1,26 +1,26 @@
-## Практическое задание
-Разработать приложение по макету - аналог таймера в iOS или Android на React.
-1. Возможность создавать бесконечное количество таймеров;
-2. Добавлять таймеры;
-3. Удалять таймеры;
-4. Запускать таймеры по отдельности;
-5. Запускать все таймеры;
-6. Ставить на паузу все таймеры;
-7. Сбрасывать все таймеры.
+## Test Task
+Develop an application based on the layout - an analogue of a timer in iOS or Android using React.
+1. Ability to create an infinite number of timers;
+2. Add timers;
+3. Delete timers;
+4. Start timers individually;
+5. Start all timers;
+6. Pause all timers;
+7. Reset all timers.
 ________________________________________________________________________________
-[Ссылка на макет](https://www.figma.com/file/l5KBtHDKDjHnvRzYdd2bYc/Untitled?type=design&node-id=0%3A1&mode=design&t=ADFEDAlw7eArIm9y-1)
+[Link to Figma](https://www.figma.com/file/l5KBtHDKDjHnvRzYdd2bYc/Untitled?type=design&node-id=0%3A1&mode=design&t=ADFEDAlw7eArIm9y-1)
 ________________________________________________________________________________
-### Примечание автора:
-В макете не указано, как должна выглядеть реализация паузы, сброса и удаления всех таймеров, поэтому я реализовала это с помощью своего решения.
+### Author's note:
+The layout doesn't specify what the implementation of pausing, resetting, and deleting all timers should look like, so I implemented that with my solution.
 ________________________________________________________________________________
-### Демонстрация работы проекта
+### Demonstration of project
 
 ![app gif](app-gif.gif)
 
 ________________________________________________________________________________
-### Запуск проекта
-`npm install` 
-
-`npm run dev`
+### Installation
+```npm install```
+### Usage
+```npm run dev```
 
 
